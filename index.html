@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alias y Mercado Pago</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    body { margin: 0; background: #0e0f12; color: #e8e8ea; display: grid; place-items: center; min-height: 100dvh; }
+    .card { width: min(640px, 92vw); background: #17181d; border: 1px solid #2a2d36; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+    h1 { margin: 0 0 16px; font-size: 2rem; letter-spacing: .2px; }
+    .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .alias { font-size: 1.25rem; font-weight: 600; background: #0f1116; border: 1px solid #2a2d36; padding: 10px 14px; border-radius: 12px; }
+    button, a.button { cursor: pointer; border: none; outline: none; background: #5b8cff; color: white; padding: 10px 14px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    button:hover, a.button:hover { filter: brightness(1.05); }
+    .sub { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .note { margin-top: 10px; opacity: .7; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Esté es mi alias</h1><div class="row">
+  <div class="alias" id="alias">luc.axel</div>
+  <button id="copyBtn" type="button" aria-label="Copiar alias">Copiar alias</button>
+</div>
+
+<div class="sub">
+  <button type="button" id="mpBtn" aria-label="Abrir Mercado Pago">Abrir Mercado Pago</button>
+</div>
+
+<p class="note">Si tu dispositivo tiene la app instalada, el botón la abrirá usando el enlace <code>mercadopago://</code>.</p>
+
+  </main>  <script>
+    // Copiar alias al portapapeles
+    const alias = 'luc.axel';
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(alias);
+        } else {
+          // Fallback para navegadores antiguos
+          const tmp = document.createElement('textarea');
+          tmp.value = alias; document.body.appendChild(tmp); tmp.select();
+          document.execCommand('copy'); document.body.removeChild(tmp);
+        }
+        alert('Alias copiado: ' + alias);
+      } catch (err) {
+        alert('No se pudo copiar automáticamente. Copia manualmente: ' + alias);
+      }
+    });
+
+    // Abrir la app de Mercado Pago (deep link)
+    document.getElementById('mpBtn').addEventListener('click', () => {
+      // Intentar abrir la app mediante su esquema de URL
+      window.location.href = 'mercadopago://';
+    });
+  </script></body>
+</html>
