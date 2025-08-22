@@ -5,16 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alias y Mercado Pago</title>
   <style>
-    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    body { margin: 0; background: #0e0f12; color: #e8e8ea; display: grid; place-items: center; min-height: 100dvh; }
-    .card { width: min(640px, 92vw); background: #17181d; border: 1px solid #2a2d36; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-    h1 { margin: 0 0 16px; font-size: 2rem; letter-spacing: .2px; }
-    .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .alias { font-size: 1.25rem; font-weight: 600; background: #0f1116; border: 1px solid #2a2d36; padding: 10px 14px; border-radius: 12px; }
-    button, a.button { cursor: pointer; border: none; outline: none; background: #5b8cff; color: white; padding: 10px 14px; border-radius: 12px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
-    button:hover, a.button:hover { filter: brightness(1.05); }
-    .sub { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
-    .note { margin-top: 10px; opacity: .7; font-size: .9rem; }
+    :root { 
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"; 
+    }
+    body {
+      margin: 0;
+      /* Fondo: foto del telescopio James Webb con capa oscura encima */
+      background: linear-gradient(rgba(14,15,18,0.8), rgba(14,15,18,0.8)),
+                  url("https://www.nasa.gov/wp-content/uploads/2022/07/webb-first-deep-field.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #e8e8ea;
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+    }
+    .card { 
+      width: min(640px, 92vw); 
+      background: #17181d; 
+      border: 1px solid #2a2d36; 
+      border-radius: 18px; 
+      padding: 28px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,.35); 
+    }
+    h1 { 
+      margin: 0 0 16px; 
+      font-size: 2rem; 
+      letter-spacing: .2px; 
+    }
+    .row { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      flex-wrap: wrap; 
+    }
+    .alias { 
+      font-size: 1.25rem; 
+      font-weight: 600; 
+      background: #0f1116; 
+      border: 1px solid #2a2d36; 
+      padding: 10px 14px; 
+      border-radius: 12px; 
+    }
+    button, a.button { 
+      cursor: pointer; 
+      border: none; 
+      outline: none; 
+      background: #5b8cff; 
+      color: white; 
+      padding: 10px 14px; 
+      border-radius: 12px; 
+      font-weight: 600; 
+      text-decoration: none; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      transition: filter .2s ease-in-out;
+    }
+    button:hover, a.button:hover { filter: brightness(1.1); }
+    .sub { 
+      margin-top: 18px; 
+      display: flex; 
+      gap: 12px; 
+      flex-wrap: wrap; 
+    }
+    .note { 
+      margin-top: 10px; 
+      opacity: .7; 
+      font-size: .9rem; 
+    }
   </style>
 </head>
 <body>
@@ -33,7 +91,7 @@
   </main>
 
   <script>
-    // Alias a copiar
+    // Copiar alias al portapapeles
     const alias = 'luc.axel';
     document.getElementById('copyBtn').addEventListener('click', async () => {
       try {
