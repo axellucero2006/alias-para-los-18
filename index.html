@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -20,26 +19,27 @@
 </head>
 <body>
   <main class="card">
-    <h1>Esté es mi alias</h1><div class="row">
-  <div class="alias" id="alias">luc.axel</div>
-  <button id="copyBtn" type="button" aria-label="Copiar alias">Copiar alias</button>
-</div>
+    <h1>Este es mi alias</h1>
+    <div class="row">
+      <div class="alias" id="alias">luc.axel</div>
+      <button id="copyBtn" type="button" aria-label="Copiar alias">Copiar alias</button>
+    </div>
 
-<div class="sub">
-  <button type="button" id="mpBtn" aria-label="Abrir Mercado Pago">Abrir Mercado Pago</button>
-</div>
+    <div class="sub">
+      <button type="button" id="mpBtn" aria-label="Abrir Mercado Pago">Abrir Mercado Pago</button>
+    </div>
 
-<p class="note">Si tu dispositivo tiene la app instalada, el botón la abrirá usando el enlace <code>mercadopago://</code>.</p>
+    <p class="note">Si tienes la app instalada, se abrirá directamente. Si no, irás a la tienda o a la versión web.</p>
+  </main>
 
-  </main>  <script>
-    // Copiar alias al portapapeles
+  <script>
+    // Alias a copiar
     const alias = 'luc.axel';
     document.getElementById('copyBtn').addEventListener('click', async () => {
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           await navigator.clipboard.writeText(alias);
         } else {
-          // Fallback para navegadores antiguos
           const tmp = document.createElement('textarea');
           tmp.value = alias; document.body.appendChild(tmp); tmp.select();
           document.execCommand('copy'); document.body.removeChild(tmp);
@@ -50,10 +50,35 @@
       }
     });
 
-    // Abrir la app de Mercado Pago (deep link)
+    // Detectar dispositivo
+    function getDevice() {
+      const ua = navigator.userAgent.toLowerCase();
+      if (/android/.test(ua)) return "android";
+      if (/iphone|ipad|ipod/.test(ua)) return "ios";
+      return "desktop";
+    }
+
+    // Abrir Mercado Pago con fallback según dispositivo
     document.getElementById('mpBtn').addEventListener('click', () => {
-      // Intentar abrir la app mediante su esquema de URL
-      window.location.href = 'mercadopago://';
+      const device = getDevice();
+      const appLink = "mercadopago://";
+      const fallback = {
+        android: "https://play.google.com/store/apps/details?id=com.mercadopago.wallet",
+        ios: "https://apps.apple.com/ar/app/mercado-pago/id925436649",
+        desktop: "https://www.mercadopago.com.ar/"
+      };
+
+      // Intento abrir app
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = appLink;
+      document.body.appendChild(iframe);
+
+      // Si no abre, redirige al fallback
+      setTimeout(() => {
+        window.location.href = fallback[device];
+      }, 1500);
     });
-  </script></body>
+  </script>
+</body>
 </html>
